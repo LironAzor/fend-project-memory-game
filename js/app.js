@@ -2,7 +2,19 @@
  * Create a list that holds all of your cards
  */
 
-
+	const deckCards= document.querySelector('.deck');
+	const list= deckCards.querySelectorAll('li');
+	const listOfCards= deckCards.querySelectorAll('i');
+	const listOfCardsToArray = Array.apply(null, listOfCards);
+	let cardsArray= [];	
+	
+	function creareCardList(){
+	for (let i=0; i< listOfCardsToArray.length; i++){
+		cardsArray.push(listOfCardsToArray[i].className);
+		}
+	}	
+	
+	creareCardList();
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -24,7 +36,6 @@ function shuffle(array) {
 
     return array;
 }
-
 
 /*
  * set up the event listener for a card. If a card is clicked:
