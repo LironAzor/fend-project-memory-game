@@ -1,13 +1,15 @@
-/*
- * Create a list that holds all of your cards
- */
 
 	const deckCards= document.querySelector('.deck');
 	const list= deckCards.querySelectorAll('li');
 	const listOfCards= deckCards.querySelectorAll('i');
 	const listOfCardsToArray = Array.apply(null, listOfCards);
 	let cardsArray= [];	
+
 	
+/*
+ * Create a list that holds all of the cards
+ */
+
 	function creareCardList(){
 	for (let i=0; i< listOfCardsToArray.length; i++){
 		cardsArray.push(listOfCardsToArray[i].className);
@@ -21,7 +23,14 @@
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
-
+ 
+ function displayCards(){
+	shuffle(cardsArray);
+	for (let i=0; i< listOfCards.length; i++){
+		listOfCards[i].className= cardsArray[i];
+	}
+ }
+ 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -40,9 +49,9 @@ function shuffle(array) {
 document.onreadystatechange= function(e){
 	if (document.readyState === 'interactive'){
 		cardsReset();
+		displayCards();
 	}
 };
-
 
 function cardsReset(){
 	for (let i=0; i < list.length; i++){
