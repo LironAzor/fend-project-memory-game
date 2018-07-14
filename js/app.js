@@ -37,6 +37,20 @@ function shuffle(array) {
     return array;
 }
 
+document.onreadystatechange= function(e){
+	if (document.readyState === 'interactive'){
+		cardsReset();
+	}
+};
+
+
+function cardsReset(){
+	for (let i=0; i < list.length; i++){
+			list[i].classList.remove('match');
+			list[i].classList.remove('show');
+			list[i].classList.remove('open');
+	}
+}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
