@@ -4,6 +4,7 @@
 	const listOfCards= deckCards.querySelectorAll('i');
 	const listOfCardsToArray = Array.apply(null, listOfCards);
 	let cardsArray= [];	
+	let counteMoves=0;
 
 	
 /*
@@ -60,6 +61,64 @@ function cardsReset(){
 			list[i].classList.remove('open');
 	}
 }
+
+function open (card){
+	card.classList.add('open', 'show');
+}
+function currentlyOpen (card){
+	card.classList.add('open', 'show', 'currentOpen');
+}
+
+function compareCards(){
+	const list2= deckCards.querySelectorAll('li.currentOpen > i');
+	const array2=[];
+	const currentCard=document.querySelectorAll('.currentOpen');
+	const currentCard2Array = Array.apply(null, currentCard);
+	for (let a=0; a< list2.length; a++){
+		array2.push (list2[a]);
+	}
+	if (array2[0].className!=array2[1].className)
+	{
+		currentCard[0].classList.remove('open' ,'show','currentOpen');
+		currentCard[1].classList.remove('open' ,'show','currentOpen');	
+	}
+	else{
+		currentCard[0].classList.remove('currentOpen');
+		currentCard[1].classList.remove('currentOpen');
+		
+	}
+}
+
+function move (){
+		counteMoves++;
+		displayMoves(counteMoves)
+		score(counteMoves);
+	}
+
+function displayMoves(getCounter){
+	if (getCounter% 2=== 0)
+	document.querySelector('.moves').innerHTML=counteMoves/2;
+}
+
+function score(){
+	const starsCount=document.querySelectorAll('.fa-star');
+	if (counteMoves>=64)
+	{
+		for (let i=0; i<2; i++){
+			starsCount[i].classList.remove('fa','fa-star');
+			starsCount[i].classList.add('far', 'fa-star');
+		}
+		
+	}
+	else if (counteMoves>10 && counteMoves<64){
+		for (let i=0; i<1; i++){
+			starsCount[i].classList.remove('fa-star');
+			starsCount[i].classList.add('fa-star-o');
+		}
+	}
+	
+}
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -70,3 +129,39 @@ function cardsReset(){
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+/*const cardsClass= document.querySelectorAll('.card');
+cardsClass.forEach (function(item){
+	item.onclick= function (e){
+		  e=this.querySelector('i').className;
+		  open(e);
+	}
+});
+*/
+
+
+list.forEach (function(item){
+	item.onclick= function (e){	
+		 const a= this;
+		 currentlyOpen(a);
+		move();
+		 if (document.querySelectorAll('.currentOpen').length===2){
+			setTimeout(function(){ compareCards(); }, 500);
+		 }
+		}
+	});
+
+/*
+list.forEach (function(item){
+	item.onclick= function (e){	
+		 const a= this;
+		 if (deckCards.querySelectorAll('.open').length<2){
+		 open(a);		
+		 }
+		 else {
+			 const a= deckCards.getElementsByClassName('open');
+			 const aToArray = Array.apply(null, a);
+			 alert (a[0]);
+		 }
+	}
+});
+*/
