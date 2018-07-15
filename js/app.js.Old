@@ -62,37 +62,62 @@ function cardsReset(){
 	}
 }
 
-function openCard (card){
+function open (card){
 	card.classList.add('open', 'show');
 }
 function currentlyOpen (card){
-	card.classList.add('currentOpen');
-	if (document.querySelectorAll('.currentOpen').length==2){
-		setTimeout(matchCards, 500);
-	};
+	card.classList.add('open', 'show', 'currentOpen');
 }
 
+function compareCards(){
+	const list2= deckCards.querySelectorAll('li.currentOpen > i');
+	const array2=[];
+	const currentCard=document.querySelectorAll('.currentOpen');
+	const currentCard2Array = Array.apply(null, currentCard);
+	for (let a=0; a< list2.length; a++){
+		array2.push (list2[a]);
+	}
+	if (array2[0].className!=array2[1].className)
+	{
+		currentCard[0].classList.remove('open' ,'show','currentOpen');
+		currentCard[1].classList.remove('open' ,'show','currentOpen');	
+	}
+	else{
+		currentCard[0].classList.remove('currentOpen');
+		currentCard[1].classList.remove('currentOpen');
+		
+	}
+}
 
-function displayMoves(){
-	if (counteMoves%2===0){
-		document.querySelector('.moves').innerHTML=counteMoves/2;
+function move (){
+		counteMoves++;
+		displayMoves(counteMoves)
+		score(counteMoves);
 	}
 
+function displayMoves(getCounter){
+	if (getCounter% 2=== 0)
+	document.querySelector('.moves').innerHTML=counteMoves/2;
 }
 
 function score(){
-	const countMovesTransform= counteMoves/2;	
 	const starsCount=document.querySelectorAll('.fa-star');
-	if (countMovesTransform===12){
-			starsCount[0].classList.remove('fa-star');
-			starsCount[0].classList.add('fa-star-o');
+	if (counteMoves>=64)
+	{
+		for (let i=0; i<2; i++){
+			starsCount[i].classList.remove('fa','fa-star');
+			starsCount[i].classList.add('far', 'fa-star');
+		}
+		
 	}
-	else if (countMovesTransform === 20){
-			starsCount[0].classList.remove('fa-star');
-			starsCount[0].classList.add('fa-star-o');
-	}
+	else if (counteMoves>10 && counteMoves<64){
+		for (let i=0; i<1; i++){
+			starsCount[i].classList.remove('fa-star');
+			starsCount[i].classList.add('fa-star-o');
+		}
 	}
 	
+}
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -104,58 +129,39 @@ function score(){
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-
-	let funArr=[];
-function checkForOpenCurrent(check){
-	alert ('Im in '+ check);
-	if (check.querySelector('i').classList.contains('openCurrent')=== false){
-					check.querySelector('i').classList.add('openCurrent');
-					funArr.push(check.querySelector('i').classList);
-		}
-}
-
-let arr=[];
-let counter=0;
-/*Add Event listener to any click but only if the class is a card than add the event click to an array*/
-
-document.body.addEventListener('click', function (event) {
-	if (event.target.classList.contains('card') &&  event.target.classList.contains('open')===false ) {
-		counteMoves++;
-		if (counter<2){
-			const getCard = event.target;
-			arr.push(getCard);
-			counter++;
-			openCard(getCard);
-			currentlyOpen(getCard);			
-			if (arr[0]===arr[1]){
-				 /*Check it is not the same l beeing clicked*/
-				 counter--;
-				 arr.splice(1,1);
-			}
-		}
+/*const cardsClass= document.querySelectorAll('.card');
+cardsClass.forEach (function(item){
+	item.onclick= function (e){
+		  e=this.querySelector('i').className;
+		  open(e);
 	}
-  event.preventDefault()
 });
+*/
 
-function matchCards(){
-	
-		const item1= arr[0].querySelector('i').classList[1];
-		
-		const item2= arr[1].querySelector('i').classList[1];
-		
-		if (item1===item2){
-			for (let i=0; i<arr.length; i++){
-				arr[i].classList.remove('currentOpen');	
-			}
+
+list.forEach (function(item){
+	item.onclick= function (e){	
+		 const a= this;
+		 currentlyOpen(a);
+		move();
+		 if (document.querySelectorAll('.currentOpen').length===2){
+			setTimeout(function(){ compareCards(); }, 500);
+		 }
 		}
-		else{
-		
-			for (let i=0; i<arr.length; i++){
-			arr[i].classList.remove('currentOpen','open', 'show');	
-			}
-		}
-	counter=0;
-	arr=[];
-	displayMoves();
-	score();
-}
+	});
+
+/*
+list.forEach (function(item){
+	item.onclick= function (e){	
+		 const a= this;
+		 if (deckCards.querySelectorAll('.open').length<2){
+		 open(a);		
+		 }
+		 else {
+			 const a= deckCards.getElementsByClassName('open');
+			 const aToArray = Array.apply(null, a);
+			 alert (a[0]);
+		 }
+	}
+});
+*/
