@@ -12,7 +12,7 @@
  */
 
 	function createCardList(){
-	for (let i=0; i< listOfCardsToArray.length; i++){
+		for (let i=0; i< listOfCardsToArray.length; i++){
 		cardsArray.push(listOfCardsToArray[i].className);
 		}
 	}	
@@ -32,15 +32,7 @@
 	}
  }
  
-function complete(beginTime){}{
-	const listLength=document.querySelectorAll('li .open').length;
-	if (listLength===16){
-		const date = new Date();
-		const time= date.getTime();
-		alert ('end'+time);
-		alert (time-beginTime);
-	}
-}
+
  
  document.querySelector('.restart').addEventListener('click', function (e){
 	 cardsReset();
@@ -79,6 +71,8 @@ function cardsReset(){
 
 function openCard (card){
 	card.classList.add('open', 'show');
+	
+	complete(beginTime);
 }
 
 function currentlyOpen (card){
@@ -121,7 +115,7 @@ function score(){
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-	let funArr=[];
+let funArr=[];
 function checkForOpenCurrent(check){
 	alert ('Im in '+ check);
 	if (check.querySelector('i').classList.contains('openCurrent')=== false){
@@ -133,17 +127,14 @@ function checkForOpenCurrent(check){
 let arr=[];
 let counter=0;
 let takeTime=0;
-let beginDate = new Date();
-let beginTime=beginDate.getTime();
+let beginTime=Math.round(new Date().getTime()/1000);
 /*Add Event listener to any click but only if the class is a card than add the event click to an array*/
 
 document.body.addEventListener('click', function (event) {
 	if (event.target.classList.contains('card') &&  event.target.classList.contains('open')===false ) {
 		if (takeTime===0){
-			beginDate = new Date();
-			beginTime= beginDate.getTime();
+			beginTime= Math.round(new Date().getTime()/1000);
 			takeTime++;
-			alert('begin'+beginTime);
 		}
 		counteMoves++;
 		if (counter<2){
@@ -182,4 +173,17 @@ function matchCards(){
 	arr=[];
 	displayMoves();
 	score();
+}
+
+function complete(beginTime) {
+	let listLength=document.querySelectorAll('.open').length;
+	let innerHTMLMessage = '';
+	if (listLength===16){
+		const time= Math.round(new Date().getTime()/1000);
+		const endTime= time-beginTime;
+		innerHTMLMessage= 'Your time is: ' + endTime+' seconds';
+		if (endTime>=60){
+			innerHTMLMessage= 'Your time is: ' + Math.round(endTime/60) +' minutes';
+		}
+	}
 }
