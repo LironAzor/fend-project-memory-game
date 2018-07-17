@@ -174,10 +174,9 @@ function matchCards(){
 	displayMoves();
 	score();
 }
-
+let innerHTMLMessage = '';
 function complete(beginTime) {
 	let listLength=document.querySelectorAll('.open').length;
-	let innerHTMLMessage = '';
 	if (listLength===16){
 		const time= Math.round(new Date().getTime()/1000);
 		const endTime= time-beginTime;
@@ -185,5 +184,12 @@ function complete(beginTime) {
 		if (endTime>=60){
 			innerHTMLMessage= 'Your time is: ' + Math.round(endTime/60) +' minutes';
 		}
+		CompletePopUp();
 	}
+}
+
+function CompletePopUp() {
+    let popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+	document.getElementById('myPopup').innerHTML= '<p>You Won!</p> Your final time is:'+ innerHTMLMessage;
 }

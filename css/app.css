@@ -107,3 +107,58 @@ h1 {
     float: right;
     cursor: pointer;
 }
+/*
+*
+*
+Pop up 
+*
+*
+*/
+/* Popup container - can be anything you want */
+.popup {
+    position: relative;
+    display: block;
+    cursor: pointer;
+	width:70%;
+	opacity:0.9;
+	filter: alpha(opacity=60);
+	z-index:1;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+	order:1; 
+    visibility: hidden;
+    width: 100%;
+	margin:0 auto;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    z-index: 1;
+	position:absolute;
+}
+
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}
