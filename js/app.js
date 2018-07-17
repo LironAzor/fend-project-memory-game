@@ -11,13 +11,13 @@
  * Create a list that holds all of the cards
  */
 
-	function creareCardList(){
+	function createCardList(){
 	for (let i=0; i< listOfCardsToArray.length; i++){
 		cardsArray.push(listOfCardsToArray[i].className);
 		}
 	}	
 	
-	creareCardList();
+	createCardList();
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -31,6 +31,21 @@
 		listOfCards[i].className= cardsArray[i];
 	}
  }
+ 
+function complete(beginTime){}{
+	const listLength=document.querySelectorAll('li .open').length;
+	if (listLength===16){
+		const date = new Date();
+		const time= date.getTime();
+		alert ('end'+time);
+		alert (time-beginTime);
+	}
+}
+ 
+ document.querySelector('.restart').addEventListener('click', function (e){
+	 cardsReset();
+	 displayCards();
+ })
  
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -65,6 +80,7 @@ function cardsReset(){
 function openCard (card){
 	card.classList.add('open', 'show');
 }
+
 function currentlyOpen (card){
 	card.classList.add('currentOpen');
 	if (document.querySelectorAll('.currentOpen').length==2){
@@ -116,10 +132,19 @@ function checkForOpenCurrent(check){
 
 let arr=[];
 let counter=0;
+let takeTime=0;
+let beginDate = new Date();
+let beginTime=beginDate.getTime();
 /*Add Event listener to any click but only if the class is a card than add the event click to an array*/
 
 document.body.addEventListener('click', function (event) {
 	if (event.target.classList.contains('card') &&  event.target.classList.contains('open')===false ) {
+		if (takeTime===0){
+			beginDate = new Date();
+			beginTime= beginDate.getTime();
+			takeTime++;
+			alert('begin'+beginTime);
+		}
 		counteMoves++;
 		if (counter<2){
 			const getCard = event.target;
@@ -140,7 +165,6 @@ document.body.addEventListener('click', function (event) {
 function matchCards(){
 	
 		const item1= arr[0].querySelector('i').classList[1];
-		
 		const item2= arr[1].querySelector('i').classList[1];
 		
 		if (item1===item2){
