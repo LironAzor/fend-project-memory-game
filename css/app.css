@@ -34,8 +34,8 @@ h1 {
 }
 
 /*
- * Styles for the deck of cards
- */
+	* Styles for the deck of cards
+*/
 
 .deck {
     width: 660px;
@@ -82,8 +82,8 @@ h1 {
 }
 
 /*
- * Styles for the Score Panel
- */
+	* Styles for the Score Panel
+*/
 
 .score-panel {
     text-align: left;
@@ -108,57 +108,60 @@ h1 {
     cursor: pointer;
 }
 /*
-*
-*
-Pop up 
-*
-*
+	*
+	*
+	Pop up 
+	*
+	*
 */
-/* Popup container - can be anything you want */
-.popup {
-    position: relative;
-    display: block;
-    cursor: pointer;
-	width:70%;
-	opacity:0.9;
-	filter: alpha(opacity=60);
-	z-index:1;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-/* The actual popup */
-.popup .popuptext {
-	order:1; 
-    visibility: hidden;
-    width: 100%;
-	margin:0 auto;
-    background-color: #555;
-    color: #fff;
+/* Modal Content */
+.modal-content {
+    background-color: lightskyblue;
+    color: darkslategray;
+    margin: auto;
+    padding: 20px;
+    border-radius: 20px;
     text-align: center;
-    border-radius: 6px;
-    padding: 8px 0;
-    z-index: 1;
-	position:absolute;
+    width: 70%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.starsPopUp li {
+list-style: none;
+display: inline-block;
+text-align:
 }
 
 
-/* Toggle this class - hide and show the popup */
-.popup .show {
-    visibility: visible;
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s;
-}
-
-/* Add animation (fade in the popup) */
-@-webkit-keyframes fadeIn {
-    from {opacity: 0;} 
-    to {opacity: 1;}
-}
-
-@keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity:1 ;}
+.starsPopUp{
+margin-right:30px; 
 }
